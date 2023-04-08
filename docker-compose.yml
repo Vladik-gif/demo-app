@@ -1,9 +1,24 @@
 version: "3.9"
 
 services:
-  spring-boot:
-    build:
-      context: .
-      dockerfile: Dockerfile
+
+  db:
+    image: 'postgres:15'
+    container_name: db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+
+  app:
+    container_name: app
+    build: ./
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
     ports:
       - 8080:8080
+    depends_on:
+      - db
