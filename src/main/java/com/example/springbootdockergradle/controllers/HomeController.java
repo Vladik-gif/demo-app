@@ -3,6 +3,8 @@ package com.example.springbootdockergradle.controllers;
 import com.example.springbootdockergradle.store.entity.ClientEntity;
 import com.example.springbootdockergradle.store.repository.ClientRepository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -14,6 +16,11 @@ public class HomeController {
 
     public HomeController(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
+    }
+
+    @PostMapping("/create")
+    public ClientEntity create(@RequestBody ClientEntity client){
+        return clientRepository.save(client);
     }
 
     @GetMapping("/clients")
