@@ -1,10 +1,11 @@
 package com.example.springbootdockergradle.store.entity;
 
 import jakarta.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "client")
-public class ClientEntity {
+public class ClientEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
