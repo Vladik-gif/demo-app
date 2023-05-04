@@ -28,8 +28,7 @@ public class ClientServer {
 
     @Cacheable(value = "UserService::getId", key = "#id")
     public ClientEntity getId(Long id){
-        ClientEntity clientId = clientRepository.getReferenceById(id);
-        return clientId;
+        return clientRepository.getReferenceById(id);
     }
 
     public List<ClientEntity> clients(){
