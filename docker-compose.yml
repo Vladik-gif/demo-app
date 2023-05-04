@@ -13,6 +13,8 @@ services:
       - "8080:8080"
     depends_on:
       - db
+    links:
+      - redis
 
   db:
     image: postgres:15.2
@@ -25,16 +27,15 @@ services:
       - "5432:5432"
     volumes:
       - local:/var/lib/postgresql/data
-      - db-data:/var/lib/postgresql/data
 
   redis:
-    image: redis:7.2-rc-alpine
     container_name: redis
+    image: redis:7.2-rc-alpine
     ports:
-      - '6379:6379'
-    command: redis-server --save 20 1 --loglevel warning --requirepass cGFzcw
-    volumes:
-      - cache:/data
+      - "6379:6379"
+    environment:
+      REDIS_HOST: localhost
+      REDIS_PORT: 6379
 
   pgadmin:
     image: dpage/pgadmin4:2023-03-01-1
@@ -50,7 +51,3 @@ services:
 volumes:
   local:
   pgadmin:
-  cache:
-    driver: local
-  db-data:
-    driver: local
