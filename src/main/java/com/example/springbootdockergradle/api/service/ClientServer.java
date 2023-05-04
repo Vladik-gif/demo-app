@@ -2,6 +2,7 @@ package com.example.springbootdockergradle.api.service;
 
 import com.example.springbootdockergradle.store.entity.ClientEntity;
 import com.example.springbootdockergradle.store.repository.ClientRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class ClientServer {
     public ClientServer(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
-
+    @Transactional
     @Caching(
             cacheable = {
                     @Cacheable(value = "ClientServer::getUsername", key = "#client.username"),
@@ -26,6 +27,7 @@ public class ClientServer {
         return clientRepository.save(client);
     }
 
+    @Transactional
     @Cacheable(value = "UserService::getId", key = "#id")
     public ClientEntity getId(Long id){
         return clientRepository.getReferenceById(id);
@@ -35,6 +37,7 @@ public class ClientServer {
         return clientRepository.findAll();
     }
 
+    @Transactional
     @Cacheable(value = "UserService::deleteId", key = "#id")
     public void deleteId(Long id){
         clientRepository.deleteById(id);
