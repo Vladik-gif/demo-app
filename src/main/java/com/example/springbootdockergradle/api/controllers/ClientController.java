@@ -11,8 +11,8 @@ public class ClientController {
     private final ClientServer clientServer;
     private static final String CREATE = "/create";
     private static final String GETS = "/clients";
-    private static final String GETID = "get/{id}";
-    private static final String DELETEID = "/delete/{id}";
+    private static final String GET_ID = "get/{id}";
+    private static final String DELETE_ID = "/delete/{id}";
 
     public ClientController(ClientServer clientServer) {
         this.clientServer = clientServer;
@@ -28,12 +28,12 @@ public class ClientController {
         return clientServer.clients();
     }
 
-    @GetMapping(GETID)
+    @GetMapping(GET_ID)
     public ClientEntity getId(@PathVariable Long id){
         return clientServer.getId(id);
     }
 
-    @DeleteMapping(DELETEID)
+    @DeleteMapping(DELETE_ID)
     public void deleteId(@PathVariable Long id){
         clientServer.deleteId(id);
     }
