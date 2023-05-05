@@ -3,12 +3,15 @@ package com.example.springbootdockergradle.api.service;
 import com.example.springbootdockergradle.store.entity.ClientEntity;
 import com.example.springbootdockergradle.store.repository.ClientRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@EnableCaching
 public class ClientServer {
 
     private final ClientRepository clientRepository;
@@ -16,29 +19,26 @@ public class ClientServer {
     public ClientServer(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
+
     @Transactional
-    @Caching(
-            cacheable = {
-                    @Cacheable(value = "ClientServer::getUsername", key = "#client.username"),
-                    @Cacheable(value = "ClientServer::getCiti", key = "#client.citi"),
-            }
-    )
+    @CachePut(value = "create")
     public ClientEntity create(ClientEntity client){
         return clientRepository.save(client);
     }
 
-    @Transactional
-    @Cacheable(value = "UserService::getId", key = "#id")
+    @Cacheable(value = "getId", key = "#id")
     public ClientEntity getId(Long id){
         return clientRepository.getReferenceById(id);
     }
 
+    @Transactional
+    @Cacheable(value = "clients")
     public List<ClientEntity> clients(){
         return clientRepository.findAll();
     }
 
     @Transactional
-    @Cacheable(value = "UserService::deleteId", key = "#id")
+    @CacheEvict(value = "deleteId", key = "#id")
     public void deleteId(Long id){
         clientRepository.deleteById(id);
     }
