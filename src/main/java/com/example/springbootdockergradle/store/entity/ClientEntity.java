@@ -1,19 +1,19 @@
 package com.example.springbootdockergradle.store.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "client")
+@Table(name = "clients")
 public class ClientEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
-    private String citi;
-
-    public ClientEntity(){}
+    private String email;
+    public ClientEntity() {}
 
     public Long getId() {
         return id;
@@ -31,11 +31,20 @@ public class ClientEntity implements Serializable {
         this.username = username;
     }
 
-    public String getCiti() {
-        return citi;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCiti(String citi) {
-        this.citi = citi;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientEntity{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
