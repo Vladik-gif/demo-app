@@ -13,15 +13,21 @@ repositories {
 	mavenCentral()
 }
 
+//DB
 dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-	implementation 'redis.clients:jedis'
 }
 
+//spring-boot
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '3.0.5'
+}
+
+//TEST
+dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
