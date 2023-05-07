@@ -2,7 +2,6 @@ package com.example.springbootdockergradle.api.service;
 
 import com.example.springbootdockergradle.store.entity.ClientEntity;
 import com.example.springbootdockergradle.store.repository.ClientRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
